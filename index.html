@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>てしかが旅帖｜北海道・弟子屈町観光ガイド</title>
+<meta name="description" content="摩周湖、屈斜路湖、硫黄山。北海道弟子屈町の絶景、温泉、グルメ、体験スポットを探す旅のガイド。">
+<style>
+:root {
+  --green: #426b54;
+  --deep: #294b3b;
+  --cream: #f7f5ed;
+  --orange: #dc9565;
+  --text: #34443a;
+  --muted: #7c887e;
+  --white: #fff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--text);
+  font-family: "Noto Sans JP", "Yu Gothic", sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+header {
+  height: 72px;
+  padding: 0 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,.95);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid #e8e8dd;
+}
+.logo {
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-weight: bold;
+  color: var(--deep);
+  letter-spacing: 1px;
+}
+.logo span {
+  display: block;
+  font-family: sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  font-weight: normal;
+  margin-top: 2px;
+}
+nav { display:flex; gap:25px; font-size:13px; }
+nav a:hover { color: var(--orange); }
+.hero {
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  padding: 70px 9%;
+  color: white;
+  position: relative;
+  background:
+    linear-gradient(90deg,rgba(22,43,34,.65),rgba(22,43,34,.08)),
+    url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1800") center/cover;
+}
+.hero-content { max-width: 600px; }
+.eyebrow {
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin-bottom: 25px;
+}
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(44px,7vw,78px);
+  line-height: 1.25;
+  margin: 0 0 20px;
+  font-weight: 500;
+}
+.hero p { font-size: 15px; line-height: 2; }
+.hero-button {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 14px 30px;
+  background: white;
+  color: var(--deep);
+  border-radius: 3px;
+  font-size: 13px;
+  transition: .2s;
+}
+.hero-button:hover { background: #e7d8bd; }
+.section {
+  padding: 85px 8%;
+  max-width: 1450px;
+  margin: auto;
+}
+.section-heading { margin-bottom: 35px; }
+.section-heading small {
+  color: var(--orange);
+  letter-spacing: 3px;
+  font-size: 11px;
+}
+.section-heading h2 {
+  font-family: Georgia,serif;
+  font-size: 34px;
+  font-weight: 500;
+  margin: 8px 0;
+}
+.section-heading p {
+  font-size: 13px;
+  color: var(--muted);
+}
+.categories {
+  display: grid;
+  grid-template-columns: repeat(6,1fr);
+  gap: 12px;
+}
+.category {
+  background: white;
+  border: 1px solid #e8e6dc;
+  padding: 20px 8px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: .2s;
+  color: var(--text);
+}
+.category:hover, .category.active {
+  background: var(--green);
+  color: white;
+  transform: translateY(-3px);
+}
+.category .icon { font-size: 25px; display:block; margin-bottom: 9px; }
+.category span:last-child { font-size: 11px; }
+.search-area {
+  display: flex;
+  gap: 10px;
+  margin: 35px 0 25px;
+}
+.search-area input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+}
+.search-area button {
+  border: 0;
+  background: var(--green);
+  color: white;
+  padding: 0 25px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.spot-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 25px;
+}
+.spot-card {
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: .2s;
+  box-shadow: 0 4px 18px rgba(0,0,0,.035);
+}
+.spot-card:hover { transform: translateY(-5px); }
+.spot-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.spot-info { padding: 20px; }
+.tag {
+  display: inline-block;
+  color: var(--green);
+  background: #eaf0e8;
+  padding: 5px 9px;
+  font-size: 10px;
+  border-radius: 2px;
+}
+.spot-info h3 { margin: 12px 0 8px; font-size: 19px; }
+.spot-info p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--muted);
+  min-height: 45px;
+}
+.spot-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--orange);
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+.no-results {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 50px;
+  color: var(--muted);
+}
+.map-section {
+  background: #eaece3;
+  padding: 85px 8%;
+}
+.map-inner { max-width: 1200px; margin: auto; }
+.map-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 25px;
+}
+.map-frame {
+  width: 100%;
+  height: 450px;
+  border: 0;
+  border-radius: 5px;
+  background: #ddd;
+}
+.map-note {
+  background: white;
+  padding: 25px;
+  border-radius: 5px;
+}
+.map-note h3 { font-size: 17px; }
+.map-note p { font-size: 12px; line-height: 2; color: var(--muted); }
+.map-note a {
+  display: block;
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+  font-size: 13px;
+  color: var(--green);
+}
+.feature {
+  background: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+.feature img { width:100%; height:380px; object-fit:cover; }
+.feature-text { padding: 45px 12%; }
+.feature-text small { color:var(--orange); letter-spacing:3px; }
+.feature-text h2 {
+  font-family: Georgia,serif;
+  font-size: 32px;
+  font-weight: 500;
+}
+.feature-text p { font-size:13px; line-height:2.2; color:var(--muted); }
+footer {
+  background: var(--deep);
+  color: white;
+  padding: 55px 8%;
+  text-align: center;
+}
+footer h2 { font-family: Georgia,serif; font-size:28px; }
+footer p { font-size:11px; opacity:.7; line-height:2; }
+footer a { text-decoration:underline; }
+@media(max-width:850px) {
+  nav { gap:12px; font-size:11px; }
+  .categories { grid-template-columns:repeat(3,1fr); }
+  .spot-grid { grid-template-columns:repeat(2,1fr); }
+  .map-layout { grid-template-columns:1fr; }
+  .feature { grid-template-columns:1fr; }
+  .feature img { height:280px; }
+}
+@media(max-width:550px) {
+  header { padding:0 5%; height:65px; }
+  .logo { font-size:21px; }
+  nav { gap:10px; }
+  nav a { font-size:10px; }
+  nav a:first-child { display:none; }
+  .hero { min-height:500px; padding:50px 7%; }
+  .section { padding:60px 6%; }
+  .section-heading h2 { font-size:29px; }
+  .categories { grid-template-columns:repeat(2,1fr); }
+  .spot-grid { grid-template-columns:1fr; }
+  .spot-card img { height:230px; }
+  .map-section { padding:60px 6%; }
+  .map-frame { height:350px; }
+  .feature-text { padding:35px 8%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#">T E S H I K A G A<span>TRAVEL GUIDE</span></a>
+  <nav>
+    <a href="#spots">SPOTS</a>
+    <a href="#map">MAP</a>
+    <a href="#about">ABOUT</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">HOKKAIDO · TESHiKAGA</div>
+    <h1>心がほどける、<br>弟子屈の旅。</h1>
+    <p>
+      湖と山、湯けむりと大地の息吹。<br>
+      北海道・弟子屈町で出会う、まだ知らない景色。<br>
+      あなたのお気に入りを見つける旅へ。
+    </p>
+    <a class="hero-button" href="#spots">旅のスポットを探す　→</a>
+  </div>
+</section>
+
+<section class="section" id="spots">
+  <div class="section-heading">
+    <small>DISCOVER TESHiKAGA</small>
+    <h2>弟子屈を楽しむ</h2>
+    <p>気になるジャンルから、お気に入りの場所を探してみよう。</p>
+  </div>
+
+  <div class="categories">
+    <button class="category active" data-category="all">
+      <span class="icon">🌿</span><span>すべて</span>
+    </button>
+    <button class="category" data-category="自然">
+      <span class="icon">🏔️</span><span>絶景・自然</span>
+    </button>
+    <button class="category" data-category="温泉">
+      <span class="icon">♨️</span><span>温泉</span>
+    </button>
+    <button class="category" data-category="グルメ">
+      <span class="icon">☕</span><span>飲食店・カフェ</span>
+    </button>
+    <button class="category" data-category="体験">
+      <span class="icon">🚣</span><span>体験</span>
+    </button>
+    <button class="category" data-category="文化">
+      <span class="icon">🏛️</span><span>歴史・文化</span>
+    </button>
+  </div>
+
+  <div class="search-area">
+    <input id="search" type="search" placeholder="スポット名・キーワードで検索">
+    <button onclick="renderSpots()">検索</button>
+  </div>
+
+  <div class="spot-grid" id="spotGrid"></div>
+</section>
+
+<section class="map-section" id="map">
+  <div class="map-inner">
+    <div class="section-heading">
+      <small>TRAVEL MAP</small>
+      <h2>地図から探す、弟子屈の旅。</h2>
+      <p>気になる場所の位置を確認して、旅の計画を立ててみよう。</p>
+    </div>
+    <div class="map-layout">
+      <iframe class="map-frame"
+        title="弟子屈町周辺の地図"
+        src="https://www.google.com/maps?q=北海道弟子屈町&output=embed"
+        loading="lazy">
+      </iframe>
+      <div class="map-note">
+        <h3>📍 観光スポットを探す</h3>
+        <p>弟子屈町は広いエリアに見どころが点在しています。移動時間も考えながら旅を楽しんでください。</p>
+        <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=摩周湖">摩周湖 →</a>
+        <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=屈斜路湖">屈斜路湖 →</a>
+        <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=硫黄山+弟子屈">硫黄山 →</a>
+        <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=川湯温泉">川湯温泉 →</a>
+        <a target="_blank" href="https://www.google.com/maps/search/?api=1&query=900草原">900草原 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature" id="about">
+  <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1000" alt="北海道の自然">
+  <div class="feature-text">
+    <small>ABOUT TESHiKAGA</small>
+    <h2>まだ知らない弟子屈に、出会う。</h2>
+    <p>
+      摩周湖の神秘的な青、屈斜路湖の雄大な景色、
+      硫黄山から立ち上る噴煙、そして大地の恵みを感じる温泉。
+      弟子屈には、訪れるたびに新しい発見があります。
+      有名な観光地も、地元の人が知る小さな場所も。
+      自分だけのお気に入りを見つけてみませんか？
+    </p>
+  </div>
+</section>
+
+<footer>
+  <h2>TESHIKAGA TRAVEL GUIDE</h2>
+  <p>北海道 川上郡 弟子屈町</p>
+  <p>※掲載情報はサンプルです。訪問前に各施設の公式情報をご確認ください。</p>
+  <p>© Teshikaga Travel Guide</p>
+</footer>
+
+<script>
+const spots = [
+  {
+    name:"摩周湖",
+    category:"自然",
+    description:"吸い込まれるような青い湖面。霧に包まれる神秘的な景色も魅力。",
+    image:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800",
+    query:"摩周湖"
+  },
+  {
+    name:"屈斜路湖",
+    category:"自然",
+    description:"日本最大のカルデラ湖。砂湯や湖畔の絶景を楽しもう。",
+    image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800",
+    query:"屈斜路湖"
+  },
+  {
+    name:"硫黄山",
+    category:"自然",
+    description:"噴気孔から立ち上る白い噴煙。大地のエネルギーを間近に感じる。",
+    image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
+    query:"硫黄山"
+  },
+  {
+    name:"900草原",
+    category:"自然",
+    description:"広大な牧草地と阿寒の山々を望む、開放感たっぷりの展望スポット。",
+    image:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800",
+    query:"900草原"
+  },
+  {
+    name:"川湯温泉",
+    category:"温泉",
+    description:"硫黄の香りに包まれる温泉街。自然の恵みを感じながらひと休み。",
+    image:"https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800",
+    query:"川湯温泉"
+  },
+  {
+    name:"コタンの湯",
+    category:"温泉",
+    description:"屈斜路湖のほとりにある露天風呂。湖を眺めながら温泉を楽しめる。",
+    image:"https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=800",
+    query:"コタンの湯"
+  },
+  {
+    name:"摩周そば",
+    category:"グルメ",
+    description:"弟子屈の名物のひとつ。旅先ならではの味を楽しもう。",
+    image:"https://images.unsplash.com/photo-1555126634-323283e090fa?w=800",
+    query:"弟子屈 摩周そば"
+  },
+  {
+    name:"弟子屈ラーメン",
+    category:"グルメ",
+    description:"地元の味として知られるラーメン。旅の食事にぴったり。",
+    image:"https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800",
+    query:"弟子屈ラーメン"
+  },
+  {
+    name:"屈斜路湖カヌー",
+    category:"体験",
+    description:"湖上から眺める景色は格別。水辺の自然を体感するアクティビティ。",
+    image:"https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=800",
+    query:"屈斜路湖 カヌー"
+  },
+  {
+    name:"摩周湖星紀行",
+    category:"体験",
+    description:"夜の摩周湖周辺で星空を楽しむ。季節や天候に合わせて計画しよう。",
+    image:"https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?w=800",
+    query:"摩周湖 星空ツアー"
+  },
+  {
+    name:"アイヌ文化に触れる",
+    category:"文化",
+    description:"この土地の歴史や文化について学び、地域の魅力を深く知る。",
+    image:"https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=800",
+    query:"弟子屈 アイヌ文化"
+  },
+  {
+    name:"美幌峠",
+    category:"自然",
+    description:"屈斜路湖を一望する絶景の峠。※弟子屈町外の近隣スポット。",
+    image:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800",
+    query:"美幌峠"
+  }
+];
+
+let currentCategory = "all";
+
+function renderSpots() {
+  const keyword = document.getElementById("search").value.trim().toLowerCase();
+  const filtered = spots.filter(spot => {
+    const categoryMatch =
+      currentCategory === "all" ||
+      spot.category === currentCategory;
+    const keywordMatch =
+      !keyword ||
+      (spot.name + spot.description).toLowerCase().includes(keyword);
+    return categoryMatch && keywordMatch;
+  });
+
+  const grid = document.getElementById("spotGrid");
+  grid.innerHTML = "";
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="no-results">該当するスポットが見つかりませんでした。</div>';
+    return;
+  }
+
+  filtered.forEach(spot => {
+    const card = document.createElement("article");
+    card.className = "spot-card";
+
+    const img = document.createElement("img");
+    img.src = spot.image;
+    img.alt = spot.name;
+    img.loading = "lazy";
+    img.onerror = () => {
+      img.src = "https://placehold.co/800x500/e8e8dd/426b54?text=TESHIKAGA";
+    };
+
+    const info = document.createElement("div");
+    info.className = "spot-info";
+
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = spot.category;
+
+    const title = document.createElement("h3");
+    title.textContent = spot.name;
+
+    const desc = document.createElement("p");
+    desc.textContent = spot.description;
+
+    const link = document.createElement("a");
+    link.className = "spot-link";
+    link.textContent = "地図で場所を確認する →";
+    link.href = "https://www.google.com/maps/search/?api=1&query=" +
+      encodeURIComponent(spot.query + " 北海道");
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    info.append(tag, title, desc, link);
+    card.append(img, info);
+    grid.appendChild(card);
+  });
+}
+
+document.querySelectorAll(".category").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".category").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    currentCategory = button.dataset.category;
+    renderSpots();
+  });
+});
+
+document.getElementById("search").addEventListener("keydown", e => {
+  if (e.key === "Enter") renderSpots();
+});
+
+renderSpots();
+</script>
+</body>
+</html>
